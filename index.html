@@ -1,14 +1,63 @@
-<html lang="en">
+let submitbutton = document.getElementById("submitbutton");
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+let errors ={};
 
-<body>
- 
-</body>
+submitbutton.addEventListener("click",function(e)
+{
+    e.preventDefault();
+    let signupform = document.forms["signupform"];
+    let firstnameinput = signupform.firstname;
+    let lastnameinput = signupform.lastname;
+    let emailnameinput = signupform.email;
+    let passwordnameinput = signupform.password;
 
-</html>
+    if(firstnameinput.value == "")
+    {
+        errors.firstname = " Field should not be empty."
+    }
+    if(lastnameinput.value =="")
+    {
+        errors.lastname = "Field should not be empty."
+    }
+     if(emailnameinput.value =="")
+     {
+         errors.emailname = "Field should not be empty."
+     }
+     if(passwordnameinput.value =="")
+     {
+         errors.passwordname = "Field should not be empty."
+     }
+     if(passwordnameinput.value.length <= 5)
+     {
+        errors.passwordname = "Minimum 6 character"
+     }
+
+    console.log(errors);
+    
+    for(let error in errors)
+    {
+        let lastnamegroup = document.getElementById(`${error}group`);
+        let lastnamemessage = document.querySelector(`#${error}group .message`);
+        lastnamegroup.classList.add("error");
+        lastnamemessage.textContent = errors[error]; 
+    }
+    for(let error in errors)
+    {
+     let emailnamegroup = document.getElementById(`${error}group`);
+     let emailnamemessage = document.querySelector(`#${error}group .message`);
+        emailnamegroup.classList.add("error");
+      emailnamemessage.textContent = errors[error];
+    }
+    for(let error in errors)
+    {
+     let passwordnamegroup = document.getElementById(`${error}group`);
+     let passwordnamemessage = document.querySelector(`#${error}group .message`);
+        passwordnamegroup.classList.add("error");
+      passwordnamemessage.textContent = errors[error];
+    }
+    if(Object.keys(errors).length == 0)
+    {
+        signupform.submit();
+    }
+
+});
